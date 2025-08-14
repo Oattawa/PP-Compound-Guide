@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP Compound Property Quick Guide (Automotive) + AI Tools</title>
+    <style>
+        /* Google Font for a clean, modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+        /* A4 Page Setup */
+        @page {
+            size: A4 portrait;
+            margin: 20mm;
+        }
+
+        body {
+            font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 9pt;
+            line-height: 1.4;
+            margin: 0;
+            padding: 20mm;
+            background-color: #f8f9fa;
+            color: #333;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        /* Title and Subtitle Styling */
+        h1 {
+            font-size: 18pt;
+            font-weight: 700;
+            text-align: center;
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+        }
+
+        h2 {
+            font-size: 12pt;
+            font-weight: 400;
+            text-align: center;
+            margin: 0 0 25px 0;
+            color: #7f8c8d;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 8px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+
+        /* Header Row Styling */
+        thead th {
+            background-color: #2980b9;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #ecf0f1;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        .num-data {
+            text-align: center;
+        }
+        
+        /* Result Table Styling */
+        .result-table {
+            margin-top: 15px;
+        }
+        .result-table td:first-child {
+            font-weight: bold;
+            color: #34495e;
+        }
+        .result-table td:not(:first-child) {
+            text-align: center;
+            font-weight: bold;
+        }
+        .price-row td {
+            background-color: #fcf3cf !important;
+        }
+
+        /* Feature Section Styling */
+        .feature-section {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .feature-section h3 {
+            margin-top: 0;
+            font-size: 16pt;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .ai-advisor-title { color: #27ae60; }
+        .level-checker-title { color: #e67e22; }
+        .estimator-title { color: #8e44ad; }
+        .comparator-title { color: #c0392b; }
+        
+        /* Input and Button Styling */
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .input-column h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #34495e;
+            border-bottom: 1px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        .input-group input,
+        .input-group select,
+        #prompt-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #bdc3c7;
+            font-family: 'Lato', sans-serif;
+            font-size: 10pt;
+            background-color: #fff;
+        }
+        #prompt-input {
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        .action-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 12pt;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        #gemini-button { background-color: #27ae60; }
+        #gemini-button:hover { background-color: #2ecc71; }
+        #checker-button { background-color: #e67e22; }
+        #checker-button:hover { background-color: #f39c12; }
+        #estimator-button { background-color: #8e44ad; }
+        #estimator-button:hover { background-color: #9b59b6; }
+        #processing-tips-button { background-color: #3498db; display: none; }
+        #processing-tips-button:hover { background-color: #5dade2; }
+        #comparator-button { background-color: #c0392b; }
+        #comparator-button:hover { background-color: #e74c3c; }
+
+
+        /* Result Area Styling */
+        .result-area {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            min-height: 50px;
+            overflow-x: auto;
+        }
+        .result-area h3 {
+            font-size: 13pt;
+            color: #34495e;
+            margin-top: 0;
+            border-bottom: none;
+        }
+        .result-area p {
+            margin: 5px 0 0 0;
+        }
+        .result-area .level {
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+        .level-low { background-color: #3498db; }
+        .level-medium { background-color: #f1c40f; color: #333;}
+        .level-high { background-color: #e74c3c; }
+
+
+        .loader {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        /* Hide interactive elements when printing */
+        @media print {
+            .feature-section {
+                display: none;
+            }
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PP Compound Property Quick Guide</h1>
+        <h2>Automotive Reference for Ranges & Significant Gaps</h2>
+        <table>
+             <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Low</th>
+                    <th>Medium</th>
+                    <th>High</th>
+                    <th>Significant Gap</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>SG → % Filler</td><td class="num-data">&lt;1.00</td><td class="num-data">1.00–1.20</td><td class="num-data">&gt;1.20</td><td class="num-data">≥0.05 SG (~3% filler)</td></tr>
+                <tr><td>Tensile Strength (MPa)</td><td class="num-data">&lt;25</td><td class="num-data">25–45</td><td class="num-data">&gt;45</td><td class="num-data">≥5 MPa</td></tr>
+                <tr><td>Tensile Modulus (MPa)</td><td class="num-data">&lt;1,500</td><td class="num-data">1,500–3,500</td><td class="num-data">&gt;3,500</td><td class="num-data">≥300 MPa</td></tr>
+                <tr><td>Flexural Strength (MPa)</td><td class="num-data">&lt;40</td><td class="num-data">40–70</td><td class="num-data">&gt;70</td><td class="num-data">≥5 MPa</td></tr>
+                <tr><td>Flexural Modulus (MPa)</td><td class="num-data">&lt;1,500</td><td class="num-data">1,500–4,000</td><td class="num-data">&gt;4,000</td><td class="num-data">≥300 MPa</td></tr>
+                <tr><td>Izod Impact RT (J/m)</td><td class="num-data">&lt;50</td><td class="num-data">50–200</td><td class="num-data">&gt;200</td><td class="num-data">≥20 J/m</td></tr>
+                <tr><td>Izod Impact High Temp (J/m)</td><td class="num-data">&lt;40</td><td class="num-data">40–150</td><td class="num-data">&gt;150</td><td class="num-data">≥15 J/m</td></tr>
+                <tr><td>Izod Impact -30°C (J/m)</td><td class="num-data">&lt;20</td><td class="num-data">20–100</td><td class="num-data">&gt;100</td><td class="num-data">≥10 J/m</td></tr>
+                <tr><td>Charpy Impact RT (kJ/m²)</td><td class="num-data">&lt;5</td><td class="num-data">5–20</td><td class="num-data">&gt;20</td><td class="num-data">≥2 kJ/m²</td></tr>
+                <tr><td>Charpy Impact High Temp (kJ/m²)</td><td class="num-data">&lt;4</td><td class="num-data">4–15</td><td class="num-data">&gt;15</td><td class="num-data">≥1.5 kJ/m²</td></tr>
+                <tr><td>Charpy Impact -30°C (kJ/m²)</td><td class="num-data">&lt;3</td><td class="num-data">3–10</td><td class="num-data">&gt;10</td><td class="num-data">≥1 kJ/m²</td></tr>
+                <tr><td>HDT @1.8 MPa (°C)</td><td class="num-data">&lt;80</td><td class="num-data">80–110</td><td class="num-data">&gt;110</td><td class="num-data">≥5°C</td></tr>
+            </tbody>
+        </table>
+
+        <!-- AI Material Advisor Section -->
+        <div class="feature-section">
+            <h3 class="ai-advisor-title">✨ AI Material Advisor</h3>
+            <p>Describe your application needs and get an AI-powered material suggestion.</p>
+            <textarea id="prompt-input" rows="4" placeholder="e.g., a car bumper that needs high impact resistance and good stiffness..."></textarea>
+            <button id="gemini-button" class="action-button">Get Suggestion</button>
+            <div id="gemini-loader" class="loader">Getting suggestion...</div>
+            <div id="gemini-result" class="result-area"></div>
+        </div>
+
+        <!-- Property Level Checker Section -->
+        <div class="feature-section">
+            <h3 class="level-checker-title">📊 Property Level Checker</h3>
+            <p>Select a property and enter a value to see its performance level.</p>
+            <div class="input-group">
+                <label for="property-select">Select Property</label>
+                <select id="property-select">
+                    <option value="fillerContent">Filler Content (%)</option>
+                    <option value="tensileStrength">Tensile Strength (MPa)</option>
+                    <option value="tensileModulus">Tensile Modulus (MPa)</option>
+                    <option value="flexuralStrength">Flexural Strength (MPa)</option>
+                    <option value="flexuralModulus">Flexural Modulus (MPa)</option>
+                    <option value="izodImpactRT">Izod Impact RT (J/m)</option>
+                    <option value="izodImpactN30">Izod Impact -30°C (J/m)</option>
+                    <option value="hdt">HDT @1.8 MPa (°C)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="property-value-input" id="property-value-label">Enter Value</label>
+                <input type="number" id="property-value-input" placeholder="e.g., 150">
+            </div>
+            <button id="checker-button" class="action-button">Check Level</button>
+            <div id="checker-result" class="result-area"></div>
+        </div>
+        
+        <!-- AI Property & Process Estimator Section -->
+        <div class="feature-section">
+            <h3 class="estimator-title">🔬 AI Property & Process Estimator</h3>
+            <p>Select a composition to estimate its typical property profile and price index using AI.</p>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="pp-type-select">PP Type</label>
+                    <select id="pp-type-select">
+                        <option value="homo">PP Homo</option>
+                        <option value="copo">PP Copo</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="filler-type-select">Filler Type</label>
+                    <select id="filler-type-select">
+                        <option value="none">None</option>
+                        <option value="talc">Talc</option>
+                        <option value="sgf">Short Glass Fiber (SGF)</option>
+                        <option value="lgf">Long Glass Fiber (LGF)</option>
+                        <option value="caco3">Calcium Carbonate</option>
+                        <option value="mica">Mica</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="filler-content-input">Filler Content (%)</label>
+                    <input type="number" id="filler-content-input" placeholder="e.g., 20" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="rubber-content-input">Rubber Content (%)</label>
+                    <input type="number" id="rubber-content-input" placeholder="e.g., 10" value="0">
+                </div>
+            </div>
+            <button id="estimator-button" class="action-button">Estimate Properties & Price</button>
+            <div id="estimator-loader" class="loader">Estimating...</div>
+            <div id="estimator-result" class="result-area"></div>
+            <button id="processing-tips-button" class="action-button">✨ Get AI Processing Tips</button>
+            <div id="processing-loader" class="loader">Getting processing tips...</div>
+            <div id="processing-result" class="result-area" style="display: none;"></div>
+        </div>
+
+        <!-- A/B Material Comparator Section -->
+        <div class="feature-section">
+            <h3 class="comparator-title">⚖️ A/B Material Comparator</h3>
+            <p>Directly compare the properties and price index of two different formulations.</p>
+            <div class="input-grid">
+                <!-- Material A -->
+                <div class="input-column">
+                    <h4>Material A</h4>
+                    <div class="input-group"><label for="a-pp-type">PP Type</label><select id="a-pp-type"><option value="homo">PP Homo</option><option value="copo" selected>PP Copo</option></select></div>
+                    <div class="input-group"><label for="a-filler-type">Filler Type</label><select id="a-filler-type"><option value="none">None</option><option value="talc" selected>Talc</option><option value="sgf">SGF</option><option value="lgf">LGF</option><option value="caco3">CaCO₃</option><option value="mica">Mica</option></select></div>
+                    <div class="input-group"><label for="a-filler-content">Filler Content (%)</label><input type="number" id="a-filler-content" value="20"></div>
+                    <div class="input-group"><label for="a-rubber-content">Rubber Content (%)</label><input type="number" id="a-rubber-content" value="10"></div>
+                </div>
+                <!-- Material B -->
+                <div class="input-column">
+                    <h4>Material B</h4>
+                    <div class="input-group"><label for="b-pp-type">PP Type</label><select id="b-pp-type"><option value="homo">PP Homo</option><option value="copo" selected>PP Copo</option></select></div>
+                    <div class="input-group"><label for="b-filler-type">Filler Type</label><select id="b-filler-type"><option value="none">None</option><option value="talc">Talc</option><option value="sgf" selected>SGF</option><option value="lgf">LGF</option><option value="caco3">CaCO₃</option><option value="mica">Mica</option></select></div>
+                    <div class="input-group"><label for="b-filler-content">Filler Content (%)</label><input type="number" id="b-filler-content" value="20"></div>
+                    <div class="input-group"><label for="b-rubber-content">Rubber Content (%)</label><input type="number" id="b-rubber-content" value="5"></div>
+                </div>
+            </div>
+            <button id="comparator-button" class="action-button">Compare Materials</button>
+            <div id="comparator-loader" class="loader">Comparing...</div>
+            <div id="comparator-result" class="result-area"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        // --- Function to call Gemini API ---
+        async function callGemini(prompt, schema = null) {
+            const apiKey = ""; // Injected by environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+            if (schema) {
+                payload.generationConfig = { responseMimeType: "application/json", responseSchema: schema };
+            }
+            const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            
+            if (!response.ok) {
+                if (response.status === 401) {
+                    throw new Error(`<b>API Authorization Error (401)</b><br>The request was not authorized. This is usually due to a missing or invalid API key. Please ensure the API key is correctly set up and has the necessary permissions.`);
+                }
+                if (response.status === 400) {
+                     let errorDetails = "Check the request format, especially the prompt content and schema.";
+                    try {
+                        const errorBody = await response.json();
+                        errorDetails = errorBody.error?.message || errorDetails;
+                    } catch(e) { /* Ignore if response body isn't valid JSON */ }
+                    throw new Error(`<b>Bad Request (400)</b><br>The API rejected the request. Details: ${errorDetails}`);
+                }
+                throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            if (result.candidates?.[0]?.content?.parts?.[0]) {
+                 return result.candidates[0].content.parts[0].text;
+            } else {
+                if (result.candidates?.[0]?.finishReason === 'SAFETY') {
+                    throw new Error("The response was blocked due to safety settings. Please adjust the prompt.");
+                }
+                throw new Error("Invalid or empty response structure from API.");
+            }
+        }
+
+        // --- AI Advisor Logic ---
+        const geminiButton = document.getElementById('gemini-button');
+        const promptInput = document.getElementById('prompt-input');
+        const geminiLoader = document.getElementById('gemini-loader');
+        const geminiResultDiv = document.getElementById('gemini-result');
+        geminiButton.addEventListener('click', async () => {
+            const userPrompt = promptInput.value;
+            if (!userPrompt) {
+                geminiResultDiv.innerHTML = '<p>Please enter your application requirements.</p>';
+                return;
+            }
+            geminiLoader.style.display = 'block';
+            geminiResultDiv.innerHTML = '';
+            geminiButton.disabled = true;
+            const materialData = `[{"name":"PP Unfilled","tensileStrength_MPa":"20-30"},{"name":"PP-TD20","tensileStrength_MPa":"30-40"},{"name":"PP-SGF20","tensileStrength_MPa":"50-65"}]`; // Simplified for brevity
+            const fullPrompt = `You are a materials science advisor. Based on this data: ${materialData}, recommend the best material for: "${userPrompt}". Format as HTML with an <h3> title.`;
+            try {
+                geminiResultDiv.innerHTML = await callGemini(fullPrompt);
+            } catch (error) {
+                console.error("Advisor Error:", error);
+                geminiResultDiv.innerHTML = `<p>Could not retrieve AI suggestion. ${error.message}</p>`;
+            } finally {
+                geminiLoader.style.display = 'none';
+                geminiButton.disabled = false;
+            }
+        });
+
+        // --- Property Level Checker Logic ---
+        const checkerButton = document.getElementById('checker-button');
+        const propertySelect = document.getElementById('property-select');
+        const propertyValueInput = document.getElementById('property-value-input');
+        const checkerResultDiv = document.getElementById('checker-result');
+        checkerButton.addEventListener('click', () => {
+            const selectedPropKey = propertySelect.value;
+            const selectedPropText = propertySelect.options[propertySelect.selectedIndex].text;
+            const value = parseFloat(propertyValueInput.value);
+            if (isNaN(value)) {
+                checkerResultDiv.innerHTML = '<p>Please enter a valid number.</p>';
+                return;
+            }
+            const propertyLevels = {
+                fillerContent: { low: 1.00, medium: 1.20, isSg: true },
+                tensileStrength: { low: 25, medium: 45 },
+                tensileModulus: { low: 1500, medium: 3500 },
+                flexuralStrength: { low: 40, medium: 70 },
+                flexuralModulus: { low: 1500, medium: 4000 },
+                izodImpactRT: { low: 50, medium: 200 },
+                izodImpactN30: { low: 20, medium: 100 },
+                hdt: { low: 80, medium: 110 }
+            };
+            const levels = propertyLevels[selectedPropKey];
+            let displayValue = value, checkValue = value;
+            if (levels.isSg) {
+                checkValue = 0.91 + (value * 0.009);
+                displayValue = `${value}% (Approx. SG ${checkValue.toFixed(2)})`;
+            }
+            let level = 'high', levelClass = 'level-high';
+            if (checkValue < levels.low) { level = 'low'; levelClass = 'level-low'; }
+            else if (checkValue <= levels.medium) { level = 'medium'; levelClass = 'level-medium'; }
+            checkerResultDiv.innerHTML = `<p>${selectedPropText} of <strong>${displayValue}</strong> is: <span class="level ${levelClass}">${level.toUpperCase()}</span></p>`;
+        });
+
+        // --- Price Index Calculation ---
+        function calculatePriceIndex(ppType, fillerType, fillerContent, rubberContent) {
+            const fillerCostFactors = { none: 0, caco3: 0.85, talc: 1.1, mica: 1.8, sgf: 2.2, lgf: 3.0 };
+            const rubberCostFactor = 2.5;
+            const basePPCost = ppType === 'homo' ? 1.05 : 1.0;
+            const ppContent = 100 - fillerContent - rubberContent;
+            if (ppContent < 20) return 'N/A';
+            const totalCost = (ppContent * basePPCost) + (fillerContent * (fillerCostFactors[fillerType] || 0)) + (rubberContent * rubberCostFactor);
+            return (totalCost / 100).toFixed(2);
+        }
+
+        // --- AI Property & Process Estimator Logic ---
+        const estimatorButton = document.getElementById('estimator-button');
+        const estimatorLoader = document.getElementById('estimator-loader');
+        const estimatorResultDiv = document.getElementById('estimator-result');
+        const processingTipsButton = document.getElementById('processing-tips-button');
+        const processingLoader = document.getElementById('processing-loader');
+        const processingResultDiv = document.getElementById('processing-result');
+        let lastComposition = {};
+        
+        const propertySchema = { 
+            type: "OBJECT", 
+            properties: { 
+                tensileStrength: { type: "STRING" },
+                tensileModulus: { type: "STRING" },
+                flexuralStrength: { type: "STRING" },
+                flexuralModulus: { type: "STRING" },
+                izodImpactRT: { type: "STRING" },
+                izodImpactHighTemp: { type: "STRING" },
+                izodImpactN30: { type: "STRING" },
+                charpyImpactRT: { type: "STRING" },
+                charpyImpactHighTemp: { type: "STRING" },
+                charpyImpactN30: { type: "STRING" },
+                hdt: { type: "STRING" }
+            } 
+        };
+
+        estimatorButton.addEventListener('click', async () => {
+            const ppType = document.getElementById('pp-type-select').value;
+            const fillerType = document.getElementById('filler-type-select').value;
+            const fillerContent = parseFloat(document.getElementById('filler-content-input').value) || 0;
+            const rubberContent = parseFloat(document.getElementById('rubber-content-input').value) || 0;
+
+            if (fillerContent + rubberContent > 80) {
+                estimatorResultDiv.innerHTML = `<p>Error: Total filler and rubber content should not exceed 80%.</p>`;
+                return;
+            }
+            
+            lastComposition = { ppType, fillerType, fillerContent, rubberContent };
+            estimatorLoader.style.display = 'block';
+            estimatorResultDiv.innerHTML = '';
+            processingTipsButton.style.display = 'none';
+            processingResultDiv.style.display = 'none';
+            estimatorButton.disabled = true;
+
+            const prompt = `Estimate typical property ranges for a PP compound: PP Type: ${ppType}, Filler: ${fillerType} at ${fillerContent}%, Rubber: ${rubberContent}%. Provide a JSON object matching the schema.`;
+
+            try {
+                const jsonText = await callGemini(prompt, propertySchema);
+                const data = JSON.parse(jsonText);
+                const priceIndex = calculatePriceIndex(ppType, fillerType, fillerContent, rubberContent);
+                
+                estimatorResultDiv.innerHTML = `
+                    <table class="result-table">
+                        <tbody>
+                            <tr><td>Tensile Strength (MPa)</td><td>${data.tensileStrength}</td></tr>
+                            <tr><td>Tensile Modulus (MPa)</td><td>${data.tensileModulus}</td></tr>
+                            <tr><td>Flexural Strength (MPa)</td><td>${data.flexuralStrength}</td></tr>
+                            <tr><td>Flexural Modulus (MPa)</td><td>${data.flexuralModulus}</td></tr>
+                            <tr><td>Izod Impact RT (J/m)</td><td>${data.izodImpactRT}</td></tr>
+                            <tr><td>Izod Impact -30°C (J/m)</td><td>${data.izodImpactN30}</td></tr>
+                            <tr><td>Charpy Impact RT (kJ/m²)</td><td>${data.charpyImpactRT}</td></tr>
+                            <tr><td>HDT @1.8 MPa (°C)</td><td>${data.hdt}</td></tr>
+                            <tr class="price-row"><td>Relative Price Index</td><td>${priceIndex}</td></tr>
+                        </tbody>
+                    </table>`;
+                processingTipsButton.style.display = 'block';
+            } catch (error) {
+                console.error("Estimator Error:", error);
+                estimatorResultDiv.innerHTML = `<p>Could not retrieve AI estimation. ${error.message}</p>`;
+            } finally {
+                estimatorLoader.style.display = 'none';
+                estimatorButton.disabled = false;
+            }
+        });
+
+        processingTipsButton.addEventListener('click', async () => {
+            processingLoader.style.display = 'block';
+            processingResultDiv.innerHTML = '';
+            processingTipsButton.disabled = true;
+            const { ppType, fillerType, fillerContent, rubberContent } = lastComposition;
+            const prompt = `Provide injection molding tips for a PP compound: ${ppType}, ${fillerContent}% ${fillerType}, ${rubberContent}% rubber. Include Melt/Mold Temp and Injection Speed. Format as HTML.`;
+            try {
+                processingResultDiv.innerHTML = await callGemini(prompt);
+                processingResultDiv.style.display = 'block';
+            } catch (error) {
+                console.error("Processing Tips Error:", error);
+                processingResultDiv.innerHTML = `<p>Could not get AI tips. ${error.message}</p>`;
+                processingResultDiv.style.display = 'block';
+            } finally {
+                processingLoader.style.display = 'none';
+                processingTipsButton.disabled = false;
+            }
+        });
+
+        // --- A/B Material Comparator Logic ---
+        const comparatorButton = document.getElementById('comparator-button');
+        const comparatorLoader = document.getElementById('comparator-loader');
+        const comparatorResultDiv = document.getElementById('comparator-result');
+
+        async function getMaterialData(prefix) {
+            const ppType = document.getElementById(`${prefix}-pp-type`).value;
+            const fillerType = document.getElementById(`${prefix}-filler-type`).value;
+            const fillerContent = parseFloat(document.getElementById(`${prefix}-filler-content`).value) || 0;
+            const rubberContent = parseFloat(document.getElementById(`${prefix}-rubber-content`).value) || 0;
+            if (fillerContent + rubberContent > 80) throw new Error(`Material ${prefix.toUpperCase()} composition exceeds 80% additives.`);
+            
+            const prompt = `Estimate typical property ranges for a PP compound: PP Type: ${ppType}, Filler: ${fillerType} at ${fillerContent}%, Rubber: ${rubberContent}%. Provide a JSON object matching the schema.`;
+            const jsonText = await callGemini(prompt, propertySchema);
+            const properties = JSON.parse(jsonText);
+            const priceIndex = calculatePriceIndex(ppType, fillerType, fillerContent, rubberContent);
+            return { ...properties, priceIndex };
+        }
+
+        comparatorButton.addEventListener('click', async () => {
+            comparatorLoader.style.display = 'block';
+            comparatorResultDiv.innerHTML = '';
+            comparatorButton.disabled = true;
+
+            try {
+                const [dataA, dataB] = await Promise.all([getMaterialData('a'), getMaterialData('b')]);
+                
+                comparatorResultDiv.innerHTML = `
+                    <table class="result-table">
+                        <thead><tr><th>Property</th><th>Material A</th><th>Material B</th></tr></thead>
+                        <tbody>
+                            <tr><td>Tensile Strength (MPa)</td><td>${dataA.tensileStrength}</td><td>${dataB.tensileStrength}</td></tr>
+                            <tr><td>Tensile Modulus (MPa)</td><td>${dataA.tensileModulus}</td><td>${dataB.tensileModulus}</td></tr>
+                            <tr><td>Flexural Strength (MPa)</td><td>${dataA.flexuralStrength}</td><td>${dataB.flexuralStrength}</td></tr>
+                            <tr><td>Flexural Modulus (MPa)</td><td>${dataA.flexuralModulus}</td><td>${dataB.flexuralModulus}</td></tr>
+                            <tr><td>Izod Impact RT (J/m)</td><td>${dataA.izodImpactRT}</td><td>${dataB.izodImpactRT}</td></tr>
+                            <tr><td>Izod Impact -30°C (J/m)</td><td>${dataA.izodImpactN30}</td><td>${dataB.izodImpactN30}</td></tr>
+                            <tr><td>Charpy Impact RT (kJ/m²)</td><td>${dataA.charpyImpactRT}</td><td>${dataB.charpyImpactRT}</td></tr>
+                            <tr><td>HDT @1.8 MPa (°C)</td><td>${dataA.hdt}</td><td>${dataB.hdt}</td></tr>
+                            <tr class="price-row"><td>Relative Price Index</td><td>${dataA.priceIndex}</td><td>${dataB.priceIndex}</td></tr>
+                        </tbody>
+                    </table>`;
+
+            } catch (error) {
+                console.error("Comparator Error:", error);
+                comparatorResultDiv.innerHTML = `<p>Could not compare materials. ${error.message}</p>`;
+            } finally {
+                comparatorLoader.style.display = 'none';
+                comparatorButton.disabled = false;
+            }
+        });
+
+    </script>
+</body>
+</html>
