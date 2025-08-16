@@ -88,7 +88,7 @@
     .badge.verified{background:#eaf7ef; color:#166b38; border-color:#bfe6cb}
 
     /* Print: show only Quick Guide (panel-guide) */
-    @media print{ .v-tabs, #panel-advisor, #panel-checker, #panel-estimator, #panel-comparator { display:none !important } #panel-guide{ display:block !important; border:none; box-shadow:none } body{padding:0} }
+    @media print{ .v-tabs, #panel-advisor, #panel-checker, #panel-estimator, #panel-comparator, #panel-standards { display:none !important } #panel-guide{ display:block !important; border:none; box-shadow:none } body{padding:0} }
 
     /* Small screens: switch to top tab bar */
     @media (max-width:720px){
@@ -116,6 +116,7 @@
       <nav class="v-tabs" aria-label="Sections">
         <h3>Sections</h3>
         <button class="active" data-tab="guide">📚 Quick Guide</button>
+        <button data-tab="standards">📏 Standards &amp; OEM Temps</button>
         <button data-tab="advisor">✨ AI Material Advisor</button>
         <button data-tab="checker">📊 Property Level Checker</button>
         <button data-tab="estimator">🔬 AI Property &amp; Process Estimator</button>
@@ -143,16 +144,104 @@
                 <tr><td>Tensile Modulus (MPa)</td><td class="num-data">&lt;1,500</td><td class="num-data">1,500–3,500</td><td class="num-data">&gt;3,500</td><td class="num-data">≥300 MPa</td></tr>
                 <tr><td>Flexural Strength (MPa)</td><td class="num-data">&lt;40</td><td class="num-data">40–70</td><td class="num-data">&gt;70</td><td class="num-data">≥5 MPa</td></tr>
                 <tr><td>Flexural Modulus (MPa)</td><td class="num-data">&lt;1,500</td><td class="num-data">1,500–4,000</td><td class="num-data">&gt;4,000</td><td class="num-data">≥300 MPa</td></tr>
-                <tr><td>Izod Impact RT (J/m)</td><td class="num-data">&lt;50</td><td class="num-data">50–200</td><td class="num-data">&gt;200</td><td class="num-data">≥20 J/m</td></tr>
-                <tr><td>Izod Impact High Temp (J/m)</td><td class="num-data">&lt;40</td><td class="num-data">40–150</td><td class="num-data">&gt;150</td><td class="num-data">≥15 J/m</td></tr>
-                <tr><td>Izod Impact −30°C (J/m)</td><td class="num-data">&lt;20</td><td class="num-data">20–100</td><td class="num-data">&gt;100</td><td class="num-data">≥10 J/m</td></tr>
-                <tr><td>Charpy Impact RT (kJ/m²)</td><td class="num-data">&lt;5</td><td class="num-data">5–20</td><td class="num-data">&gt;20</td><td class="num-data">≥2 kJ/m²</td></tr>
-                <tr><td>Charpy Impact High Temp (kJ/m²)</td><td class="num-data">&lt;4</td><td class="num-data">4–15</td><td class="num-data">&gt;15</td><td class="num-data">≥1.5 kJ/m²</td></tr>
-                <tr><td>Charpy Impact −30°C (kJ/m²)</td><td class="num-data">&lt;3</td><td class="num-data">3–10</td><td class="num-data">&gt;10</td><td class="num-data">≥1 kJ/m²</td></tr>
+                <tr><td>Izod Impact RT (J/m, notched)</td><td class="num-data">&lt;50</td><td class="num-data">50–200</td><td class="num-data">&gt;200</td><td class="num-data">≥20 J/m</td></tr>
+                <tr><td>Izod Impact −30°C (J/m, notched)</td><td class="num-data">&lt;20</td><td class="num-data">20–100</td><td class="num-data">&gt;100</td><td class="num-data">≥10 J/m</td></tr>
+                <tr><td>Charpy Impact RT (kJ/m², notched)</td><td class="num-data">&lt;0.5</td><td class="num-data">0.5–2.0</td><td class="num-data">&gt;2.0</td><td class="num-data">≥0.2 kJ/m²</td></tr>
+                <tr><td>Charpy Impact −30°C (kJ/m², notched)</td><td class="num-data">&lt;0.3</td><td class="num-data">0.3–1.0</td><td class="num-data">&gt;1.0</td><td class="num-data">≥0.1 kJ/m²</td></tr>
                 <tr><td>MFR (g/10 min, 230°C/2.16 kg)</td><td class="num-data">&lt;5</td><td class="num-data">5–20</td><td class="num-data">&gt;20</td><td class="num-data">≥3 g/10 min</td></tr>
                 <tr><td>HDT @1.8 MPa (°C)</td><td class="num-data">&lt;80</td><td class="num-data">80–110</td><td class="num-data">&gt;110</td><td class="num-data">≥5°C</td></tr>
               </tbody>
             </table>
+            <p class="hint" style="margin-top:8px">Note: Izod (ASTM D256, J/m) and Charpy (ISO 179, kJ/m²) use different geometries. For a quick sanity check you can use <strong>Charpy kJ/m² ≈ Izod J/m ÷ 100</strong> for standard 10&nbsp;mm width notched specimens; actual conversion depends on specimen &amp; notch.</p>
+          </div>
+        </section>
+
+        <!-- ===== Standards Panel ===== -->
+        <section id="panel-standards" class="panel">
+          <div class="feature-section">
+            <h3 class="ai-advisor-title" style="color:#2c3e50">Automotive Test Standards &amp; OEM Impact Temperatures</h3>
+
+            <h4 style="margin:6px 0 8px; color:#34495e">Impact Test Standards (Common)</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Standard</th>
+                  <th>Notch / Type</th>
+                  <th>Specimen (typ.)</th>
+                  <th>Units</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Izod (notched)</td>
+                  <td>ASTM D256</td>
+                  <td>V-notch (A)</td>
+                  <td>~64×12.7×3.2&nbsp;mm</td>
+                  <td>J/m</td>
+                  <td>Auto labs often use 3.2–4&nbsp;mm; keep geometry consistent.</td>
+                </tr>
+                <tr>
+                  <td>Izod (notched)</td>
+                  <td>ISO 180/1A</td>
+                  <td>A-notch</td>
+                  <td>80×10×4&nbsp;mm</td>
+                  <td>kJ/m²</td>
+                  <td>Do not mix with ASTM values without conversion.</td>
+                </tr>
+                <tr>
+                  <td>Charpy (notched)</td>
+                  <td>ISO 179-1eA</td>
+                  <td>V-notch</td>
+                  <td>80×10×4&nbsp;mm</td>
+                  <td>kJ/m²</td>
+                  <td>Basis used by many EU OEMs for exterior parts.</td>
+                </tr>
+                <tr>
+                  <td>Charpy (unnotched)</td>
+                  <td>ISO 179-1eU</td>
+                  <td>Unnotched</td>
+                  <td>80×10×4&nbsp;mm</td>
+                  <td>kJ/m²</td>
+                  <td>Significantly higher than notched; not directly comparable.</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="hint" style="margin-top:8px">Quick check: <strong>Charpy (kJ/m²) ≈ Izod (J/m) ÷ 100</strong> for standard <em>notched</em> bars; confirm geometry &amp; notch before comparing.</p>
+
+            <h4 style="margin:14px 0 8px; color:#34495e">OEM Impact Temperature Checklist</h4>
+            <table id="oem-temp-table">
+              <thead>
+                <tr>
+                  <th>OEM / Domain</th>
+                  <th>Method</th>
+                  <th>Typical Setpoints (°C)</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody contenteditable="true">
+                <tr>
+                  <td>Generic — Exterior (fascia/bumper)</td>
+                  <td>Notched Izod / Charpy</td>
+                  <td>23, -30</td>
+                  <td>Common cold-impact pair; verify in program spec.</td>
+                </tr>
+                <tr>
+                  <td>Generic — Interior</td>
+                  <td>Notched Izod / Charpy</td>
+                  <td>23, -20</td>
+                  <td>Some OEMs also require -30&nbsp;°C for critical interior parts.</td>
+                </tr>
+                <tr>
+                  <td>OEM (enter)</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td>Replace with the exact WSS/GMW/TL/TSM/HES/ES clause.</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="hint" style="margin-top:8px">Cells above are editable. Paste OEM clauses or temps here to track per-program requirements. This app uses <strong>notched</strong> impact values throughout.</p>
           </div>
         </section>
 
@@ -181,8 +270,9 @@
                 <option value="tensileModulus">Tensile Modulus (MPa)</option>
                 <option value="flexuralStrength">Flexural Strength (MPa)</option>
                 <option value="flexuralModulus">Flexural Modulus (MPa)</option>
-                <option value="izodImpactRT">Izod Impact RT (J/m)</option>
-                <option value="izodImpactN30">Izod Impact −30°C (J/m)</option>
+                <option value="izodImpactRT">Izod Impact RT (J/m, notched)</option>
+                <option value="izodImpactN30">Izod Impact −30°C (J/m, notched)</option>
+                <option value="charpyImpactRT">Charpy Impact RT (kJ/m², notched)</option>
                 <option value="mfr">MFR (g/10 min)</option>
                 <option value="hdt">HDT @1.8 MPa (°C)</option>
               </select>
@@ -232,6 +322,7 @@
             <div class="input-row">
               <label class="hint"><input type="checkbox" id="use-verified" /> Use Verified Data (no AI)</label>
             </div>
+            <p class="hint">Impact values are for <strong>notched</strong> specimens (Izod: ASTM D256, J/m; Charpy: ISO 179, kJ/m²).</p>
             <button id="estimator-button" class="action-button">Estimate Properties &amp; Price</button>
             <div id="estimator-loader" class="loader">Estimating...</div>
             <div id="estimator-result" class="result-area"></div>
@@ -262,6 +353,7 @@
                 <div class="input-group"><label for="b-rubber-content">Rubber Content (%)</label><input type="number" id="b-rubber-content" value="5" /></div>
               </div>
             </div>
+            <p class="hint">Impact values are for <strong>notched</strong> specimens (consistent with the Estimator).</p>
             <button id="comparator-button" class="action-button">Compare Materials</button>
             <div id="comparator-loader" class="loader">Comparing...</div>
             <div id="comparator-result" class="result-area"></div>
@@ -271,21 +363,25 @@
     </div>
   </div>
 
-  <script type="module">
+  <script>
     // ===== Vertical Tabs Script =====
-    const btns = document.querySelectorAll('.v-tabs button');
-    const panels = {
-      guide: document.getElementById('panel-guide'),
-      advisor: document.getElementById('panel-advisor'),
-      checker: document.getElementById('panel-checker'),
-      estimator: document.getElementById('panel-estimator'),
-      comparator: document.getElementById('panel-comparator')
-    };
-    btns.forEach(function(b){ b.addEventListener('click', function(){
-      btns.forEach(function(x){ x.classList.remove('active'); }); b.classList.add('active');
-      Object.values(panels).forEach(function(p){ p.classList.remove('active'); });
-      var key = b.getAttribute('data-tab'); panels[key].classList.add('active');
-    }); });
+    (function(){
+      var btns = document.querySelectorAll('.v-tabs button');
+      var panels = {
+        guide: document.getElementById('panel-guide'),
+        standards: document.getElementById('panel-standards'),
+        advisor: document.getElementById('panel-advisor'),
+        checker: document.getElementById('panel-checker'),
+        estimator: document.getElementById('panel-estimator'),
+        comparator: document.getElementById('panel-comparator')
+      };
+      function activate(tab){
+        for(var k in panels){ if(panels[k]) panels[k].classList.remove('active'); }
+        if(panels[tab]) panels[tab].classList.add('active');
+        btns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-tab')===tab); });
+      }
+      btns.forEach(function(b){ b.addEventListener('click', function(){ activate(this.getAttribute('data-tab')); }); });
+    })();
 
     // ===== Gemini API helper (with graceful fallback) =====
     async function callGemini(prompt, schema){
@@ -317,6 +413,7 @@
         flexuralModulus:{ low:1500, med:4000 },
         izodImpactRT:{ low:50, med:200 },
         izodImpactN30:{ low:20, med:100 },
+        charpyImpactRT:{ low:0.5, med:2.0 },
         mfr:{ low:5, med:20 },
         hdt:{ low:80, med:110 }
       };
@@ -327,9 +424,8 @@
       checkerResultDiv.innerHTML = '<p>' + label + ' of <strong>' + valueDisp + '</strong> is: <span class="level ' + cls + '">' + level.toUpperCase() + '</span></p>';
     });
 
-    // ===== Evidence-backed database (from literature & datasheets) =====
-    // Values are typical ranges for homopolymer PP with ~0% rubber unless stated; adjustments applied for copo/rubber.
-    // Units: MPa (tensile), GPa (flexural modulus), J/m (Izod), kJ/m² (Charpy RT), °C (HDT @1.8 MPa), g/10 min (MFR @230°C/2.16 kg)
+    // ===== Evidence-backed database (literature & datasheets, normalized to NOTCHED tests) =====
+    // Units: MPa (strength), GPa (flexural modulus), J/m (Izod), kJ/m² (Charpy RT), °C (HDT @1.8 MPa), g/10 min (MFR @230°C/2.16 kg)
     var EVIDENCE_DB = {
       none: { 0: { tensile:[28,37], flexMod:[1.2,1.7], izodRT:[40,120], izodN30:[5,25], charpyRT:[0.3,1.0], hdt:[60,70], mfr:[12,25] }},
       talc: {
@@ -352,8 +448,8 @@
         40: { tensile:[95,105],flexMod:[8.0,10.0],izodRT:[100,160],izodN30:[70,120], charpyRT:[1.0,1.7], hdt:[150,165], mfr:[1,4] }
       },
       lgf: {
-        30: { tensile:[80,90], flexMod:[6.0,7.0], izodRT:[200,500], izodN30:[120,300], charpyRT:[20,40], hdt:[140,155], mfr:[2,6] },
-        40: { tensile:[90,100],flexMod:[7.0,8.0], izodRT:[250,600], izodN30:[150,350], charpyRT:[22,45], hdt:[145,160], mfr:[1,4] }
+        30: { tensile:[80,90], flexMod:[6.0,7.0], izodRT:[130,260], izodN30:[90,180], charpyRT:[1.0,2.5], hdt:[140,155], mfr:[2,6] },
+        40: { tensile:[90,100],flexMod:[7.0,8.0], izodRT:[160,300], izodN30:[110,220], charpyRT:[1.2,3.0], hdt:[145,160], mfr:[1,4] }
       }
     };
 
@@ -417,8 +513,8 @@
 
     // ===== Heuristic Estimator (fallback) =====
     var BASE = { tensile:{homo:30, copo:28}, flex:{homo:50,copo:48}, izod:{homo:80,copo:140}, hdt:{homo:95,copo:90} };
-    var FILL = { none:{t:0,f:0,i:0,h:0}, talc:{t:0.6,f:1.0,i:-3,h:0.8}, sgf:{t:1.2,f:1.8,i:2,h:0.7}, lgf:{t:1.6,f:2.4,i:4,h:0.9}, caco3:{t:0.4,f:0.7,i:-2,h:0.5}, mica:{t:0.8,f:1.6,i:-2,h:1.2} };
-    var RUB = { t:-0.5, f:-0.8, i:8, h:-0.6 };
+    var FILL = { none:{t:0,f:0,i:0,h:0}, talc:{t:0.6,f:1.0,i:-3,h:0.8}, sgf:{t:1.2,f:1.8,i:-1.0,h:0.7}, lgf:{t:1.6,f:2.4,i:-0.5,h:0.9}, caco3:{t:0.4,f:0.7,i:-2,h:0.5}, mica:{t:0.8,f:1.6,i:-2,h:1.2} };
+    var RUB = { t:-0.5, f:-0.8, i:4, h:-0.6 };
     function clamp(v,a,b){ return Math.min(b, Math.max(a,v)); }
     function band(m,p){ return [m*(1-p), m*(1+p)]; }
 
@@ -426,6 +522,9 @@
       ppType = (ppType||'homo').toLowerCase(); fillerType=(fillerType||'none').toLowerCase(); fPct=+fPct||0; rPct=+rPct||0;
       var t=BASE.tensile[ppType], f=BASE.flex[ppType], i=BASE.izod[ppType], h=BASE.hdt[ppType];
       var E=FILL[fillerType]; t+=E.t*fPct; f+=E.f*fPct; i+=E.i*fPct; h+=E.h*fPct; t+=RUB.t*rPct; f+=RUB.f*rPct; i+=RUB.i*rPct; h+=RUB.h*rPct;
+      // Izod notched cap by filler type (keeps results realistic)
+      var IZOD_MAX = { none:600, talc:220, caco3:240, mica:220, sgf:180, lgf:220 };
+      i = Math.min(i, IZOD_MAX[fillerType] || 400);
       // MFR heuristic (g/10 min @230°C/2.16 kg)
       var BASE_MFR = { homo:18, copo:14 };
       var FILL_MFR = { none:0, talc:-0.12, sgf:-0.35, lgf:-0.50, caco3:-0.10, mica:-0.15 };
@@ -456,7 +555,7 @@
       var total = (ppPct*base)+(fPct*(fillerCost[fillerType]||0))+(rPct*rubberCF); return (total/100).toFixed(2);
     }
 
-    // ===== Level bands & helper functions for L/M/H tags =====
+    // ===== L/M/H tags =====
     var LEVEL_BANDS = {
       tensileStrength: { low:25, med:45 },
       tensileModulus:  { low:1500, med:3500 },
@@ -464,15 +563,25 @@
       flexuralModulus: { low:1500, med:4000 },
       izodImpactRT:    { low:50,  med:200 },
       izodImpactN30:   { low:20,  med:100 },
-      charpyImpactRT:  { low:5,   med:20  },
+      charpyImpactRT:  { low:0.5, med:2.0 },
       mfr:             { low:5,   med:20  },
       hdt:             { low:80,  med:110 }
     };
+    function extractNumbers(s){
+      var out=[]; var cur='';
+      for(var i=0;i<s.length;i++){
+        var c=s[i];
+        var isNum = (c>='0' && c<='9') || c==='.' || c==='-';
+        if(isNum){ cur+=c; } else { if(cur){ var v=parseFloat(cur); if(!isNaN(v)) out.push(v); cur=''; } }
+      }
+      if(cur){ var v=parseFloat(cur); if(!isNaN(v)) out.push(v); }
+      return out;
+    }
     function parseMid(str){
       if(!str || typeof str !== 'string') return NaN;
-      var nums = str.match(/\d+(?:\.\d+)?/g);
+      var nums = extractNumbers(str);
       if(!nums || !nums.length) return NaN;
-      var first = parseFloat(nums[0]); var last = parseFloat(nums[nums.length-1]);
+      var first = nums[0]; var last = nums[nums.length-1];
       if(isNaN(last)) return first;
       return (first + last) / 2;
     }
@@ -485,7 +594,7 @@
     }
     function levelSpan(level){
       if(!level) return '';
-      var cls = level==='low'? 'level-low': (level==='medium'? 'level-medium': 'level-high');
+      var cls = level==='low'?'level-low':(level==='medium'?'level-medium':'level-high');
       return ' <span class="level ' + cls + '">' + level.toUpperCase() + '</span>';
     }
     function withLevel(propKey, valueStr){
@@ -494,25 +603,24 @@
       return valueStr + levelSpan(lvl);
     }
 
-    // ===== AI Advisor =====
+    // ===== AI Material Advisor =====
     var gemBtn = document.getElementById('gemini-button');
     var promptInput = document.getElementById('prompt-input');
     var gemLoad = document.getElementById('gemini-loader');
     var gemOut = document.getElementById('gemini-result');
-    gemBtn.addEventListener('click', async function(){
+    gemBtn && gemBtn.addEventListener('click', async function(){
       var userPrompt = promptInput.value.trim(); if(!userPrompt){ gemOut.innerHTML='<p>Please enter your application requirements.</p>'; return; }
       gemLoad.style.display='block'; gemOut.innerHTML=''; gemBtn.disabled=true;
-      var materialData = '[{"name":"PP Unfilled","tensileStrength_MPa":"20-30"},{"name":"PP-TD20","tensileStrength_MPa":"30-40"},{"name":"PP-SGF20","tensileStrength_MPa":"50-65"}]';
-      var fullPrompt = 'You are a materials science advisor. Based on this data: ' + materialData + ', recommend the best material for: "' + userPrompt + '". Format as HTML with an <h3> title.';
+      var text = userPrompt.toLowerCase();
       try{
-        var html = await callGemini(fullPrompt, null); gemOut.innerHTML = html;
+        // If you wire an API key above, this will call Gemini. Otherwise we go to fallback.
+        var html = await callGemini('Recommend a PP compound for: "' + userPrompt + '". Format as HTML.', null); gemOut.innerHTML = html;
       }catch(e){
-        var text = userPrompt.toLowerCase();
         var suggestion = 'PP Copo + Talc 20% for balanced stiffness/flow and moderate impact.';
-        if(/bumper|impact|low temp|cold|notch/.test(text)) suggestion = 'PP Copo + EPDM 10–15% + Talc 10% (high impact, better −30°C).';
-        if(/bracket|stiff|rigid|warp/.test(text)) suggestion = 'PP Homo + SGF 20–30% (high stiffness, good HDT).';
-        if(/structure|load|nvh|creep/.test(text)) suggestion = 'PP Homo + LGF 20–30% (very high stiffness, creep resistance).';
-        gemOut.innerHTML = '<h3>Suggested Direction (Heuristic)</h3><p>' + suggestion + '</p><p class="muted">(AI API not configured; local heuristic used.)</p>';
+        if(text.indexOf('bumper')>-1 || text.indexOf('impact')>-1 || text.indexOf('low temp')>-1 || text.indexOf('cold')>-1 || text.indexOf('notch')>-1){ suggestion = 'PP Copo + EPDM 10–15% + Talc 10% (high impact, better −30°C).'; }
+        if(text.indexOf('bracket')>-1 || text.indexOf('stiff')>-1 || text.indexOf('rigid')>-1 || text.indexOf('warp')>-1){ suggestion = 'PP Homo + SGF 20–30% (high stiffness, good HDT).'; }
+        if(text.indexOf('structure')>-1 || text.indexOf('load')>-1 || text.indexOf('nvh')>-1 || text.indexOf('creep')>-1){ suggestion = 'PP Homo + LGF 20–30% (very high stiffness, creep resistance).'; }
+        gemOut.innerHTML = '<h3>Suggested Direction (Heuristic)</h3><p>' + suggestion + '</p><p class="hint">(AI API not configured; local heuristic used.)</p>';
       }finally{ gemLoad.style.display='none'; gemBtn.disabled=false; }
     });
 
@@ -524,106 +632,130 @@
     var tipsLoad= document.getElementById('processing-loader');
     var tipsOut = document.getElementById('processing-result');
     var useVerified = document.getElementById('use-verified');
-    var lastComp = {};
 
-    var schema = { type:'OBJECT', properties:{
-      tensileStrength:{type:'STRING'}, tensileModulus:{type:'STRING'}, flexuralStrength:{type:'STRING'}, flexuralModulus:{type:'STRING'},
-      izodImpactRT:{type:'STRING'}, izodImpactHighTemp:{type:'STRING'}, izodImpactN30:{type:'STRING'}, charpyImpactRT:{type:'STRING'}, charpyImpactHighTemp:{type:'STRING'}, charpyImpactN30:{type:'STRING'}, hdt:{type:'STRING'}, mfr:{type:'STRING'} } };
+    function estimateProperties(pp, filler, fPct, rPct, preferVerified){
+      var data=null, usedVerified=false, usedFallback=false;
+      if(preferVerified){ var ev = evidenceEstimate(pp, filler, fPct, rPct); if(ev){ data=ev; usedVerified=true; } }
+      if(!data){
+        var h = heuristicEstimate(pp, filler, fPct, rPct); usedFallback=true;
+        data = { tensileStrength:h.tensile, tensileModulus:'—', flexuralStrength:h.flexural, flexuralModulus:'—', izodImpactRT:h.izodRT, izodImpactN30:h.izodN30, charpyImpactRT:h.charpyRT, mfr:h.mfr, hdt:h.hdt };
+      }
+      return { data:data, usedVerified:usedVerified, usedFallback:usedFallback };
+    }
 
-    estBtn.addEventListener('click', async function(){
+    estBtn && estBtn.addEventListener('click', function(){
       var pp = document.getElementById('pp-type-select').value;
       var filler = document.getElementById('filler-type-select').value;
       var fPct = parseFloat(document.getElementById('filler-content-input').value)||0;
       var rPct = parseFloat(document.getElementById('rubber-content-input').value)||0;
       if(fPct + rPct > 80){ estOut.innerHTML='<p>Error: Total filler and rubber content should not exceed 80%.</p>'; return; }
-      lastComp = { pp: pp, filler: filler, fPct: fPct, rPct: rPct };
-      estLoad.style.display='block'; estOut.innerHTML=''; tipsBtn.style.display='none'; tipsOut.style.display='none'; estBtn.disabled=true;
+      var preferVerified = !!(useVerified && useVerified.checked);
+      var res = estimateProperties(pp, filler, fPct, rPct, preferVerified);
+      var data = res.data; var price = calcPriceIndex(pp, filler, fPct, rPct);
 
-      var data; var usedFallback=false; var usedVerified=false;
-      if(useVerified.checked){
-        var ev = evidenceEstimate(pp, filler, fPct, rPct);
-        if(ev){ data = ev; usedVerified=true; }
-      }
-      if(!data){
-        var prompt = 'Estimate typical property ranges for a PP compound: PP Type: ' + pp + ', Filler: ' + filler + ' at ' + fPct + '%, Rubber: ' + rPct + '%. Provide a JSON object matching the schema.';
-        try{ var jsonText = await callGemini(prompt, schema); data = JSON.parse(jsonText); }
-        catch(e){ var h = heuristicEstimate(pp, filler, fPct, rPct); usedFallback=true; data = { tensileStrength:h.tensile, tensileModulus:'—', flexuralStrength:h.flexural, flexuralModulus:'—', izodImpactRT:h.izodRT, izodImpactN30:h.izodN30, charpyImpactRT:h.charpyRT, mfr:h.mfr, hdt:h.hdt }; }
-      }
-      var price = calcPriceIndex(pp, filler, fPct, rPct);
       var htmlRes = ''+
         '<table class="result-table"><tbody>'+
           '<tr><td>Tensile Strength (MPa)</td><td>' + withLevel('tensileStrength', (data.tensileStrength||'—')) + '</td></tr>'+
           '<tr><td>Tensile Modulus (MPa)</td><td>' + withLevel('tensileModulus', (data.tensileModulus||'—')) + '</td></tr>'+
           '<tr><td>Flexural Strength (MPa)</td><td>' + withLevel('flexuralStrength', (data.flexuralStrength||'—')) + '</td></tr>'+
           '<tr><td>Flexural Modulus (MPa)</td><td>' + withLevel('flexuralModulus', (data.flexuralModulus||'—')) + '</td></tr>'+
-          '<tr><td>Izod Impact RT (J/m)</td><td>' + withLevel('izodImpactRT', (data.izodImpactRT||'—')) + '</td></tr>'+
-          '<tr><td>Izod Impact −30°C (J/m)</td><td>' + withLevel('izodImpactN30', (data.izodImpactN30||'—')) + '</td></tr>'+
-          '<tr><td>Charpy Impact RT (kJ/m²)</td><td>' + withLevel('charpyImpactRT', (data.charpyImpactRT||'—')) + '</td></tr>'+
+          '<tr><td>Izod Impact RT (J/m, notched)</td><td>' + withLevel('izodImpactRT', (data.izodImpactRT||'—')) + '</td></tr>'+
+          '<tr><td>Izod Impact −30°C (J/m, notched)</td><td>' + withLevel('izodImpactN30', (data.izodImpactN30||'—')) + '</td></tr>'+
+          '<tr><td>Charpy Impact RT (kJ/m², notched)</td><td>' + withLevel('charpyImpactRT', (data.charpyImpactRT||'—')) + '</td></tr>'+
           '<tr><td>MFR (g/10 min)</td><td>' + withLevel('mfr', (data.mfr||'—')) + '</td></tr>'+
           '<tr><td>HDT @1.8 MPa (°C)</td><td>' + withLevel('hdt', (data.hdt||'—')) + '</td></tr>'+
           '<tr class="price-row"><td>Relative Price Index</td><td>' + price + '</td></tr>'+
         '</tbody></table>';
-      if(usedVerified){ htmlRes += (data._badge ? '<div style="margin-top:8px">' + data._badge + '</div>' : '<span class="badge verified">Verified data</span>'); }
-      if(usedFallback){ htmlRes += '<p class="muted" style="color:#7f8c8d">(Heuristic estimator used; configure API key for AI estimates.)</p>'; }
+      if(res.usedVerified){ htmlRes += (data._badge ? '<div style="margin-top:8px">' + data._badge + '</div>' : '<span class="badge verified">Verified data</span>'); }
       estOut.innerHTML = htmlRes;
+
       tipsBtn.style.display='inline-flex';
-      estLoad.style.display='none'; estBtn.disabled=false;
     });
 
-    tipsBtn.addEventListener('click', async function(){
-      tipsLoad.style.display='block'; tipsOut.innerHTML=''; tipsBtn.disabled=true;
-      var pp = lastComp.pp, filler = lastComp.filler, fPct = lastComp.fPct, rPct = lastComp.rPct;
-      var prompt = 'Provide injection molding tips for a PP compound: ' + pp + ', ' + fPct + '% ' + filler + ', ' + rPct + '% rubber. Include Melt/Mold Temp and Injection Speed. Format as HTML.';
-      try{ tipsOut.innerHTML = await callGemini(prompt); tipsOut.style.display='block'; }
-      catch(e){ tipsOut.innerHTML = '<ul><li>Melt: 190–230°C (copo higher rubber → lower melt)</li><li>Mold: 30–60°C (talc → higher mold temp for gloss)</li><li>Injection: medium-fast; LGF/SGF → moderate to avoid fiber breakage</li><li>Back pressure: low–medium; venting for rubber blends</li></ul>'; tipsOut.style.display='block'; }
-      finally{ tipsLoad.style.display='none'; tipsBtn.disabled=false; }
+    // Processing tips (AI or heuristic)
+    var tipsBtnEl = document.getElementById('processing-tips-button');
+    tipsBtnEl && tipsBtnEl.addEventListener('click', async function(){
+      var ppType = document.getElementById('pp-type-select').value;
+      var fillerType = document.getElementById('filler-type-select').value;
+      var fillerContent = parseFloat(document.getElementById('filler-content-input').value)||0;
+      var rubberContent = parseFloat(document.getElementById('rubber-content-input').value)||0;
+      tipsLoad.style.display='block'; tipsOut.innerHTML=''; tipsBtnEl.disabled=true;
+      try{
+        var html = await callGemini('PP Type: ' + ppType + ', Filler: ' + fillerType + ' ' + fillerContent + '%, Rubber: ' + rubberContent + '%. Provide injection molding tips. Format as HTML list.', null);
+        tipsOut.innerHTML = html; tipsOut.style.display='block';
+      }catch(e){
+        var melt = (ppType==='homo'?200:190) + '–' + (ppType==='homo'?230:220) + ' °C';
+        var mold = '30–50 °C';
+        var speed = fillerType==='lgf' ? 'Low–Medium (to limit fiber breakage)' : (fillerType==='sgf' ? 'Medium' : 'Medium–High');
+        var hold = fillerType==='talc' || fillerType==='mica' ? 'Higher pack/hold to control shrink and warpage' : 'Standard';
+        var txt = '<ul>'+
+          '<li><b>Melt Temp:</b> ' + melt + '</li>'+
+          '<li><b>Mold Temp:</b> ' + mold + '</li>'+
+          '<li><b>Injection Speed:</b> ' + speed + '</li>'+
+          '<li><b>Notes:</b> ' + hold + '; dry filler grades; vent adequately; increase back pressure for GF dispersion.</li>'+
+        '</ul>';
+        tipsOut.innerHTML = txt; tipsOut.style.display='block';
+      }finally{ tipsLoad.style.display='none'; tipsBtnEl.disabled=false; }
     });
 
     // ===== Comparator =====
-    var cmpBtn = document.getElementById('comparator-button');
-    var cmpLoad = document.getElementById('comparator-loader');
-    var cmpOut  = document.getElementById('comparator-result');
+    var comparatorButton = document.getElementById('comparator-button');
+    var comparatorLoader = document.getElementById('comparator-loader');
+    var comparatorResultDiv = document.getElementById('comparator-result');
 
-    async function getMaterialData(prefix){
-      var pp = document.getElementById(prefix + '-pp-type').value;
-      var filler = document.getElementById(prefix + '-filler-type').value;
-      var fPct = parseFloat(document.getElementById(prefix + '-filler-content').value)||0;
-      var rPct = parseFloat(document.getElementById(prefix + '-rubber-content').value)||0;
-      if(fPct + rPct > 80) throw new Error('Material ' + prefix.toUpperCase() + ' composition exceeds 80% additives.');
-      if(useVerified.checked){
-        var ev = evidenceEstimate(pp, filler, fPct, rPct); if(ev) return Object.assign({ priceIndex: calcPriceIndex(pp, filler, fPct, rPct) }, ev);
-      }
-      var prompt = 'Estimate typical property ranges for a PP compound: PP Type: ' + pp + ', Filler: ' + filler + ' at ' + fPct + '%, Rubber: ' + rPct + '%. Provide a JSON object matching the schema.';
-      try{ var json = await callGemini(prompt, schema); var props = JSON.parse(json); var price = calcPriceIndex(pp, filler, fPct, rPct); props.priceIndex = price; return props; }
-      catch(e){ var h = heuristicEstimate(pp, filler, fPct, rPct); var price2 = calcPriceIndex(pp, filler, fPct, rPct);
-        return { tensileStrength:h.tensile, tensileModulus:'—', flexuralStrength:h.flexural, flexuralModulus:'—', izodImpactRT:h.izodRT, izodImpactN30:h.izodN30, charpyImpactRT:h.charpyRT, mfr:h.mfr, hdt:h.hdt, priceIndex:price2 }; }
+    function getComp(prefix){
+      return {
+        pp: document.getElementById(prefix+'-pp-type').value,
+        filler: document.getElementById(prefix+'-filler-type').value,
+        fPct: parseFloat(document.getElementById(prefix+'-filler-content').value)||0,
+        rPct: parseFloat(document.getElementById(prefix+'-rubber-content').value)||0
+      };
     }
 
-    cmpBtn.addEventListener('click', async function(){
-      cmpLoad.style.display='block'; cmpOut.innerHTML=''; cmpBtn.disabled=true;
+    comparatorButton && comparatorButton.addEventListener('click', function(){
+      comparatorLoader.style.display='block'; comparatorResultDiv.innerHTML=''; comparatorButton.disabled=true;
       try{
-        var results = await Promise.all([getMaterialData('a'), getMaterialData('b')]);
-        var A = results[0], B = results[1];
-        var htmlCmp = ''+
+        var A = getComp('a'); var B = getComp('b');
+        if(A.fPct + A.rPct > 80) throw new Error('Material A composition exceeds 80% additives.');
+        if(B.fPct + B.rPct > 80) throw new Error('Material B composition exceeds 80% additives.');
+        var preferVerified = !!(useVerified && useVerified.checked);
+        var resA = estimateProperties(A.pp, A.filler, A.fPct, A.rPct, preferVerified);
+        var resB = estimateProperties(B.pp, B.filler, B.fPct, B.rPct, preferVerified);
+        var priceA = calcPriceIndex(A.pp, A.filler, A.fPct, A.rPct);
+        var priceB = calcPriceIndex(B.pp, B.filler, B.fPct, B.rPct);
+        var Adata = resA.data, Bdata = resB.data;
+        var html = ''+
           '<table class="result-table">'+
-            '<thead><tr><th>Property</th><th>Material A</th><th>Material B</th></tr></thead>'+
-            '<tbody>'+
-              '<tr><td>Tensile Strength (MPa)</td><td>' + withLevel('tensileStrength', A.tensileStrength) + '</td><td>' + withLevel('tensileStrength', B.tensileStrength) + '</td></tr>'+
-              '<tr><td>Tensile Modulus (MPa)</td><td>' + withLevel('tensileModulus', (A.tensileModulus||'—')) + '</td><td>' + withLevel('tensileModulus', (B.tensileModulus||'—')) + '</td></tr>'+
-              '<tr><td>Flexural Strength (MPa)</td><td>' + withLevel('flexuralStrength', (A.flexuralStrength||'—')) + '</td><td>' + withLevel('flexuralStrength', (B.flexuralStrength||'—')) + '</td></tr>'+
-              '<tr><td>Flexural Modulus (MPa)</td><td>' + withLevel('flexuralModulus', (A.flexuralModulus||'—')) + '</td><td>' + withLevel('flexuralModulus', (B.flexuralModulus||'—')) + '</td></tr>'+
-              '<tr><td>Izod Impact RT (J/m)</td><td>' + withLevel('izodImpactRT', A.izodImpactRT) + '</td><td>' + withLevel('izodImpactRT', B.izodImpactRT) + '</td></tr>'+
-              '<tr><td>Izod Impact −30°C (J/m)</td><td>' + withLevel('izodImpactN30', A.izodImpactN30) + '</td><td>' + withLevel('izodImpactN30', B.izodImpactN30) + '</td></tr>'+
-              '<tr><td>Charpy Impact RT (kJ/m²)</td><td>' + withLevel('charpyImpactRT', A.charpyImpactRT) + '</td><td>' + withLevel('charpyImpactRT', B.charpyImpactRT) + '</td></tr>'+
-              '<tr><td>MFR (g/10 min)</td><td>' + withLevel('mfr', (A.mfr||'—')) + '</td><td>' + withLevel('mfr', (B.mfr||'—')) + '</td></tr>'+
-              '<tr><td>HDT @1.8 MPa (°C)</td><td>' + withLevel('hdt', A.hdt) + '</td><td>' + withLevel('hdt', B.hdt) + '</td></tr>'+
-              '<tr class="price-row"><td>Relative Price Index</td><td>' + A.priceIndex + '</td><td>' + B.priceIndex + '</td></tr>'+
-            '</tbody>'+
-          '</table>';
-        cmpOut.innerHTML = htmlCmp;
-      }catch(err){ cmpOut.innerHTML = '<p>Could not compare materials. ' + err.message + '</p>'; }
-      finally{ cmpLoad.style.display='none'; cmpBtn.disabled=false; }
+          '<thead><tr><th>Property</th><th>Material A</th><th>Material B</th></tr></thead><tbody>'+
+          '<tr><td>Tensile Strength (MPa)</td><td>' + withLevel('tensileStrength',(Adata.tensileStrength||'—')) + '</td><td>' + withLevel('tensileStrength',(Bdata.tensileStrength||'—')) + '</td></tr>'+
+          '<tr><td>Tensile Modulus (MPa)</td><td>' + withLevel('tensileModulus',(Adata.tensileModulus||'—')) + '</td><td>' + withLevel('tensileModulus',(Bdata.tensileModulus||'—')) + '</td></tr>'+
+          '<tr><td>Flexural Strength (MPa)</td><td>' + withLevel('flexuralStrength',(Adata.flexuralStrength||'—')) + '</td><td>' + withLevel('flexuralStrength',(Bdata.flexuralStrength||'—')) + '</td></tr>'+
+          '<tr><td>Flexural Modulus (MPa)</td><td>' + withLevel('flexuralModulus',(Adata.flexuralModulus||'—')) + '</td><td>' + withLevel('flexuralModulus',(Bdata.flexuralModulus||'—')) + '</td></tr>'+
+          '<tr><td>Izod Impact RT (J/m, notched)</td><td>' + withLevel('izodImpactRT',(Adata.izodImpactRT||'—')) + '</td><td>' + withLevel('izodImpactRT',(Bdata.izodImpactRT||'—')) + '</td></tr>'+
+          '<tr><td>Izod Impact −30°C (J/m, notched)</td><td>' + withLevel('izodImpactN30',(Adata.izodImpactN30||'—')) + '</td><td>' + withLevel('izodImpactN30',(Bdata.izodImpactN30||'—')) + '</td></tr>'+
+          '<tr><td>Charpy Impact RT (kJ/m², notched)</td><td>' + withLevel('charpyImpactRT',(Adata.charpyImpactRT||'—')) + '</td><td>' + withLevel('charpyImpactRT',(Bdata.charpyImpactRT||'—')) + '</td></tr>'+
+          '<tr><td>MFR (g/10 min)</td><td>' + withLevel('mfr',(Adata.mfr||'—')) + '</td><td>' + withLevel('mfr',(Bdata.mfr||'—')) + '</td></tr>'+
+          '<tr><td>HDT @1.8 MPa (°C)</td><td>' + withLevel('hdt',(Adata.hdt||'—')) + '</td><td>' + withLevel('hdt',(Bdata.hdt||'—')) + '</td></tr>'+
+          '<tr class="price-row"><td>Relative Price Index</td><td>' + priceA + '</td><td>' + priceB + '</td></tr>'+
+          '</tbody></table>';
+        comparatorResultDiv.innerHTML = html;
+      }catch(err){
+        comparatorResultDiv.innerHTML = '<p>Could not compare materials. ' + err.message + '</p>';
+      }finally{
+        comparatorLoader.style.display='none'; comparatorButton.disabled=false;
+      }
     });
+
+    // ===== Self tests =====
+    (function runSelfTests(){
+      try{
+        console.assert(parseMid('100–200')===150, 'parseMid range');
+        console.assert(levelOf('izodImpactRT',150)==='medium','izod 150 MEDIUM');
+        console.assert(levelOf('charpyImpactRT',2.6)==='high','charpy 2.6 HIGH');
+        var t = withLevel('tensileStrength','30–40 MPa'); console.assert(t.toUpperCase().indexOf('LEVEL')>-1,'withLevel attaches tag');
+        console.log('[PP Guide] Self-tests passed');
+      }catch(e){ console.warn('[PP Guide] Self-tests need attention', e); }
+    })();
   </script>
 </body>
 </html>
