@@ -39,8 +39,8 @@
     .panel.active{display:block}
 
     /* ===== Tables ===== */
-    table{width:100%; border-collapse:collapse; table-layout:fixed}
-    th,td{border:1px solid var(--line2); padding:8px; text-align:left; word-wrap:break-word}
+    table{width:100%; border-collapse:collapse; table-layout:auto; min-width:600px}
+    th,td{border:1px solid var(--line2); padding:8px; text-align:left; word-break:normal; overflow-wrap:anywhere}
     thead th{background:var(--brand); color:#fff; font-weight:700; text-align:center}
     tbody tr:nth-child(even){background:#ecf0f1}
     tbody tr:nth-child(odd){background:#fff}
@@ -93,6 +93,7 @@
     /* Small screens: switch to top tab bar */
     @media (max-width:720px){
       .app{ grid-template-columns: 1fr; gap: 10px; }
+      table{display:block; overflow-x:auto; -webkit-overflow-scrolling:touch;}
       .v-tabs{
         display:flex; flex-direction:row; gap:8px;
         position:sticky; top:0; z-index:10;
